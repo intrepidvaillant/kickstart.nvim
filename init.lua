@@ -364,7 +364,6 @@ require('lazy').setup {
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -377,7 +376,7 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
+          winblend = 5,
           previewer = false,
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
@@ -395,6 +394,11 @@ require('lazy').setup {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      -- Ignoring .git to search in .github
+      vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files { hidden = true, file_ignore_patterns = { '.git/' } }
+      end, { desc = '[S]earch [F]iles' })
     end,
   },
 
