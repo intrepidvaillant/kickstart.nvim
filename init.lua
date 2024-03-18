@@ -645,15 +645,21 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
     'folke/tokyonight.nvim',
     priority = 1000, -- make sure to load this before all the other start plugins
-    init = function()
+    config = function()
       vim.cmd.colorscheme 'tokyonight-day'
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
     end,
   },
 
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  vim.api.nvim_set_option('background', 'light') {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+  },
 
+  
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
